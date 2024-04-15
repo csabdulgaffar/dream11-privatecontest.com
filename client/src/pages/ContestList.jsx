@@ -20,7 +20,7 @@ function ContestList() {
     const handleCopyClick = (contest) => {
         navigator.clipboard.writeText(contest.contestCode);
         setCopied(true)
-        setTimeout(() => setCopied(false), 300);
+        setTimeout(() => setCopied(false), 500);
     }
     useEffect(() => {
         contests.forEach((contest) => {
@@ -87,6 +87,9 @@ function ContestList() {
             <h1 className='text-2xl font-bold text-center mb-5'>Live Private Contests </h1>
             <p className='text-xl text-center'>Choose your favorite contest and copy code to join...</p>
             <p className='text-xl font-bold text-right'>Total Contests: {contests.length}</p>
+            {copied &&
+                <div className='  mb-2 max-w-24 mx-auto text-center text-white text-sm p-1 bg-gray-900 rounded-md'> Copied! </div>
+            }
             <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4'>
                 {contests.map((contest) => (
                     <div key={contest._id} className='flex flex-col gap-2 border-2 border-solid border-red-700 rounded-2xl p-4'>
@@ -131,9 +134,7 @@ function ContestList() {
                             <div className='text-2xl cursor-pointer' onClick={() => handleCopyClick(contest)}>
                                 <MdContentCopy />
                             </div>
-                            {copied &&
-                                <div className='w-24 top-0 left-0 text-white text-sm p-1 bg-gray-900 rounded-md'> Copied! </div>
-                            }
+
 
                         </div>
 
@@ -142,6 +143,7 @@ function ContestList() {
                     </div>
                 ))}
             </div>
+
         </div>
     );
 }

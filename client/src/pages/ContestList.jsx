@@ -7,6 +7,12 @@ import { MdContentCopy } from "react-icons/md";
 function ContestList() {
     const [contests, setContests] = useState([]);
     const [copied, setCopied] = useState(false);
+
+    const handleCopyClick = (contest) => {
+        navigator.clipboard.writeText(contest.contestCode);
+        setCopied(true)
+        setTimeout(() => setCopied(false), 500);
+    }
     const deleteContest = async (contestId) => {
         try {
             await axios.delete(`https://dream11-privatecontest-com.onrender.com/api/contests/${contestId}`);
@@ -17,16 +23,18 @@ function ContestList() {
         }
     };
 
-    const handleCopyClick = (contest) => {
-        navigator.clipboard.writeText(contest.contestCode);
-        setCopied(true)
-        setTimeout(() => setCopied(false), 500);
-    }
+
     useEffect(() => {
         contests.forEach((contest) => {
-            const expirationTime = new Date(contest.timeValidity).getTime();
+            console.log(contest)
+            var expirationTime = new Date(contest.timeValidity).getTime();
+            expirationTime -= 19800000;
             const currentTime = new Date().getTime();
+
+            console.log(expirationTime, currentTime)
             const timeLeft = expirationTime - currentTime;
+            console.log(timeLeft)
+
 
             if (timeLeft < 0) {
                 deleteContest(contest._id);

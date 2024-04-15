@@ -7,7 +7,6 @@ import About from "./pages/About"
 import Layout from "./pages/Layout"
 import Demo from "./pages/Demo"
 
-import './index.css'
 
 
 function App() {

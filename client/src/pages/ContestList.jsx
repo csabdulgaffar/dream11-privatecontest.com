@@ -9,7 +9,7 @@ function ContestList() {
     const [copied, setCopied] = useState(false);
     const deleteContest = async (contestId) => {
         try {
-            await axios.delete(`https://dream11-privatecontest-com.onrender.com/api/contests${contestId}`);
+            await axios.delete(`https://dream11-privatecontest-com.onrender.com/api/contests/${contestId}`);
             setContests((prevContests) => prevContests.filter((contest) => contest._id !== contestId));
             window.location.reload()
         } catch (err) {

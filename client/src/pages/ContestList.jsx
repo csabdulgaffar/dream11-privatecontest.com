@@ -6,6 +6,7 @@ import { MdContentCopy } from "react-icons/md";
 
 function ContestList() {
     const [contests, setContests] = useState([]);
+    const [copied, setCopied] = useState(false);
     const deleteContest = async (contestId) => {
         try {
             await axios.delete(`https://dream11-privatecontest-com.onrender.com/api/contests${contestId}`);
@@ -16,6 +17,11 @@ function ContestList() {
         }
     };
 
+    const handleCopyClick = (contest) => {
+        navigator.clipboard.writeText(contest.contestCode);
+        setCopied(true)
+        setTimeout(() => setCopied(false), 300);
+    }
     useEffect(() => {
         contests.forEach((contest) => {
             const expirationTime = new Date(contest.timeValidity).getTime();
@@ -122,10 +128,12 @@ function ContestList() {
 
                         <div className=' border-t-8 border-solid border-red-700 flex py-6 gap-2 items-center justify-center'>
                             <div className="text-2xl font-bold text-center  ">{contest.contestCode}</div>
-                            <div className='text-3xl cursor-pointer' onClick={() => navigator.clipboard.writeText(contest.contestCode)}>
+                            <div className='text-2xl cursor-pointer' onClick={() => handleCopyClick(contest)}>
                                 <MdContentCopy />
-
                             </div>
+                            {copied &&
+                                <div className='w-24 top-0 left-0 text-white text-sm p-1 bg-gray-900 rounded-md'> Copied! </div>
+                            }
 
                         </div>
 

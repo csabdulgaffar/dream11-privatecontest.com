@@ -9,20 +9,3 @@
 /.env.development.local
 /.env.test.local
 /.env.production.local
-
-# editor files
-*.log
-*.pot
-*.scss
-*.swp
-
-# build generated
-*.css
-*.map
-
-# test coverage
-/coverage
-
-# misc
-.DS_Store
-Thumbs.db

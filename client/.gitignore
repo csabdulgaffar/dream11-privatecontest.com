@@ -4,7 +4,6 @@
 # production build
 /build
 
-#dist
 # development environment
 /.env.local
 /.env.development.local

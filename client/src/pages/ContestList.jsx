@@ -8,7 +8,7 @@ function ContestList() {
     const [contests, setContests] = useState([]);
     const deleteContest = async (contestId) => {
         try {
-            await axios.delete(`http://localhost:5000/api/contests/${contestId}`);
+            await axios.delete(`https://dream11-privatecontest-com.onrender.com/api/contests${contestId}`);
             setContests((prevContests) => prevContests.filter((contest) => contest._id !== contestId));
             window.location.reload()
         } catch (err) {
@@ -36,7 +36,8 @@ function ContestList() {
 
     const fetchContests = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/contests');
+            const response = await axios.get('https://dream11-privatecontest-com.onrender.com/api/contests');
+
             setContests(response.data);
         } catch (err) {
             console.error('Failed to fetch contests', err);
@@ -46,6 +47,11 @@ function ContestList() {
 
     const formatTime = (time) => {
         const date = new Date(time);
+
+        // Subtract 5 hours and 30 minutes from the date
+        date.setHours(date.getHours() - 5);
+        date.setMinutes(date.getMinutes() - 30);
+
         const now = new Date();
         const tomorrow = new Date(now);
         tomorrow.setDate(now.getDate() + 1);
@@ -58,30 +64,30 @@ function ContestList() {
 
         if (date.toDateString() === now.toDateString()) {
             // If the date is today, show "Today" instead of the date
-            return `Today ${date.toLocaleTimeString('en-US', options)}`;
+            return `Today ${date.toLocaleTimeString('en-IN', options)}`;
         } else if (date.toDateString() === tomorrow.toDateString()) {
             // If the date is tomorrow, show "Tomorrow" instead of the date
-            return `Tomorrow ${date.toLocaleTimeString('en-US', options)}`;
+            return `Tomorrow ${date.toLocaleTimeString('en-IN', options)}`;
         } else {
             // Otherwise, show the full date and time
-            return `${date.toLocaleDateString('en-US')} ${date.toLocaleTimeString('en-US', options)}`;
+            return `${date.toLocaleDateString('en-IN')} ${date.toLocaleTimeString('en-IN', options)}`;
         }
     };
 
 
 
     return (
-        <div>
-            <h1 className='text-3xl font-bold text-center mb-10'>Live Private Contests </h1>
+        <div className="min-h-screen mx-auto p-6 max-w-screen-lg">
+            <h1 className='text-2xl font-bold text-center mb-5'>Live Private Contests </h1>
             <p className='text-xl text-center'>Choose your favorite contest and copy code to join...</p>
-            <p className='text-2xl font-bold text-right'>Total Contests: {contests.length}</p>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+            <p className='text-xl font-bold text-right'>Total Contests: {contests.length}</p>
+            <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4'>
                 {contests.map((contest) => (
                     <div key={contest._id} className='flex flex-col gap-2 border-2 border-solid border-red-700 rounded-2xl p-4'>
                         <div>
                             <div className="text-3xl py-3 font-bold text-center border-b-8 border-solid border-red-700 ">{contest.contestName}</div>
                         </div>
-                        <div className='text-2xl flex gap-2 flex-col'>
+                        <div className='text-md flex gap-2 flex-col'>
                             <div className=' flex gap-3 '>
                                 <div className='font-bold'>Participation Amount:</div>
                                 <div className=" text-gray-800 break-words">{contest.participationAmount}</div>

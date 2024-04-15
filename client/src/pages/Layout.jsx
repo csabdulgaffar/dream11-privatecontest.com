@@ -2,17 +2,17 @@ import { Outlet } from "react-router-dom"
 import Header from "./Header"
 function Layout() {
     return (
-        <div className="flex flex-col">
+        <div >
 
 
-            <div>
+            <div className="">
                 <Header />
             </div>
-            <div className="min-h-screen p-6">
+            <div   >
                 <Outlet />
 
             </div>
-            <div className="bg-gray-900 py-40 text-white items-center text-center">
+            <div className="bg-gray-900 py-40 text-white items-center text-center mt-20">
                 <div>Copyright @ csabdulgaffar@gmail.com</div>
             </div>
         </div>)

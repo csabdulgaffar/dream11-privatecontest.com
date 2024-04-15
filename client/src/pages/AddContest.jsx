@@ -30,7 +30,7 @@ function AddContest() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5000/api/contests', contest);
+            await axios.post('https://dream11-privatecontest-com.onrender.com/api/contests', contest);
             setContest({
                 contestName: '',
                 timeValidity: '',
@@ -74,10 +74,10 @@ function AddContest() {
     };
 
     return (
-        <div className='max-w-3xl mx-auto'>
+        <div className="min-h-screen mx-auto p-6 max-w-screen-sm">
 
-            <h1 className='text-3xl font-bold text-center mb-10'>Add Contest</h1>
-            <div className='text-red-700 text-xl font-bold text-center'>All fields are required!!</div>
+            <h1 className='text-2xl font-bold text-center mb-5'>Add Contest</h1>
+            <div className='text-red-700 text-md font-bold text-center'>All fields are required!!</div>
             <form onSubmit={handleSubmit} className='flex flex-col gap-3 '>
                 <div className='flex flex-col gap-1'>
                     <label className='font-bold' htmlFor=''>
